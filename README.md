@@ -4,3 +4,6 @@ Napisz aplikację, która na podstawie wprowadzonych przez użytkownika danych t
 
 Podpowiedzi:
 DateTime, DateTime.Now, DateTime.Year, age.DayOfYear.
+
+Source 
+ModestProgramer - Akademia.net

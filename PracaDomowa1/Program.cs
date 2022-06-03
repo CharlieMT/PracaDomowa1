@@ -71,13 +71,10 @@ namespace PracaDomowa1
         {
             int age = DateTime.Now.Year - userDateTime.Year;
 
-            if (userDateTime.Month > DateTime.Now.Month)
+            if (userDateTime.DayOfYear < DateTime.Now.DayOfYear)
                 return age;
 
-            if (userDateTime.Day > DateTime.Now.Day)
-                return age;
-
-            return age++;
+            return --age;
         }
     }
 }

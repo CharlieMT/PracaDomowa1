@@ -32,52 +32,44 @@ namespace PracaDomowa1
 
         private static DateTime CollectDateData()
         {
-            DateTime dateTime = new DateTime(1900, 01, 01);
-            try
+            
+            while (true)
             {
-                Console.WriteLine("Podaj dzien urodzenia :");
-                if (!int.TryParse(Console.ReadLine(), out int day))
-                    throw new Exception("Podano nie prawidłową wartość");
+                Console.WriteLine("Podaj rok w ktorym sie urodzileś :");
+                if (!int.TryParse(Console.ReadLine(), out int year) || year > DateTime.Now.Year)
+                {
+                    Console.WriteLine("Podano nie prawidłową wartość \n Sprobuj jeszcze raz");
+                    continue;
+                }
 
                 Console.WriteLine("Podaj miesiac w ktorym sie urodziles z zakresu 1-12 :");
-                if (!int.TryParse(Console.ReadLine(), out int month))
-                    throw new Exception("Podano nie prawidłową wartość");
+                if (!int.TryParse(Console.ReadLine(), out int month) || month > 12 || month < 1)
+                {
+                    Console.WriteLine("Podano nie prawidłową wartość \n Sprobuj jeszcze raz");
+                    continue;
+                }
 
-                Console.WriteLine("Podaj rok w ktorym sie urodzileś :");
-                if (!int.TryParse(Console.ReadLine(), out int year))
-                    throw new Exception("Podano nie prawidłową wartość");
+                Console.WriteLine("Podaj dzien urodzenia :");
+                if (!int.TryParse(Console.ReadLine(), out int day) || DateTime.DaysInMonth(year, month) < day || day < 1)
+                {
+                    Console.WriteLine("Podano nie prawidłową wartość \n Sprobuj jeszcze raz");
+                    continue;
+                }
 
-                if (year > DateTime.Now.Year)
-                    throw new Exception("Nie mogles urodzic sie w przyszlosci :)");
+                var dateTime = new DateTime(year, month, day);
+                return dateTime;
 
-                if (month > 12 || month < 1)
-                    throw new Exception("Podano zla wartosc dla miesiaca :)");
-
-                if (DateTime.DaysInMonth(year, month) < day || day < 1)
-                    throw new Exception("Podano zla wartosc dla dnia miesiaca :)");
-
-                dateTime = new DateTime(year, month, day);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return dateTime;
-
         }
 
         private static int AgeCount(DateTime userDateTime)
         {
             int age = DateTime.Now.Year - userDateTime.Year;
 
-            if (userDateTime.Month > DateTime.Now.Month)
+            if (userDateTime.DayOfYear < DateTime.Now.DayOfYear)
                 return age;
 
-            if (userDateTime.Day > DateTime.Now.Day)
-                return age;
-
-            return age++;
+            return --age;
         }
     }
 }
